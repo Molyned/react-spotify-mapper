@@ -1,5 +1,6 @@
 import pymongo
 import json
+import geocoder
 import config
 # from flask import Flask
 # app = Flask(__name__)
@@ -10,30 +11,7 @@ import config
 client = pymongo.MongoClient('mongodb+srv://molyned:{}@spotifycluster-6btnk.mongodb.net/test?retryWrites=true&w=majority'.format(config.MONGO_PASSWORD))
 database = client.business
 collection = database.artistInfo
-
-# collection.insert_one({
-#     'drake': { 
-#     "_id": 1,
-#     "name": "pizza",
-#     "calories": 266,
-#     "fats": {
-#         "saturated": 4.5,
-#         "trans": 0.2
-#     },
-#     "protein": 11}
-# })
-# ({
-# 'drake' : {
-# 'cities' : {
-# ' []
-# },
-# 'listeners' : []
-# 'lat' : []
-# 'lon' : []
-# }
-# })
-
-
+collection2 = database.artistInfo2
 
 jsonArray =[{"country":"US","region":"IL","city":"Chicago","listeners":1256184},{"country":"US","region":"CA","city":"Los Angeles","listeners":1214212},
                         {"country":"US","region":"NY","city":"New York City","listeners":915071},{"country":"US","region":"TX","city":"Dallas","listeners":891214},
@@ -60,12 +38,43 @@ jsonArray =[{"country":"US","region":"IL","city":"Chicago","listeners":1256184},
                         {"country":"ID","region":"JK","city":"Jakarta","listeners":228678},{"country":"US","region":"MI","city":"Detroit","listeners":227999},
                         {"country":"DE","region":"HE","city":"Frankfurt am Main","listeners":224265},{"country":"US","region":"CA","city":"Oakland","listeners":224147},
                         {"country":"DE","region":"HH","city":"Hamburg","listeners":218215},{"country":"DE","region":"BE","city":"Berlin","listeners":217921}]
-# cities = set()
-# for i in range(len(jsonArray)):
-#     data = {}
-#     city = jsonArray[i]["city"] 
-#     data['city'] = city
-#     print(data)
-#     cities.add(data)
 
-collection.insert_many(jsonArray)
+# countries, cityListeners, newJsonArray= [], [], []
+# for i in range(len(jsonArray)):
+#     city = jsonArray[i]["city"]
+#     country = jsonArray[i]["country"]
+#     listeners = jsonArray[i]["listeners"] 
+#     listenersProper = "{:,}".format(listeners)
+#     print(listenersProper)
+#     countries.append(country)
+#     cityListeners.append(listenersProper)
+#     streamingLoc = country +', ' + city
+#     g = geocoder.arcgis(streamingLoc)
+#     lng = g.json['lng']
+#     lat = g.json['lat']
+#     jsonArray[i]['listeners'] = listenersProper
+#     jsonArray[i]['lat'] = lat
+#     jsonArray[i]['lng'] = lng
+#     del jsonArray[i]['country']
+#     del jsonArray[i]['region']
+#     # print(jsonArray[i])
+#     newJsonArray.append(jsonArray[i])
+
+# artistName = ['drake'] # , 'lebron']
+# for i in range(len(artistName)):
+#     collection2.insert_one({
+#         artistName[i]: {
+#         'cities': newJsonArray} 
+#         # 'countries' : countries,
+#         # 'listeners': cityListeners} 
+#     })
+    # collection2.insert_one({
+    #     artistName[i]: [{'cities': cities,
+    #     'countries' : countries,
+    #     'listeners': cityListeners}] 
+    #     })
+
+my_cursor = collection.find()
+ 
+for item in my_cursor:
+    print(item["Shawn Mendes"][0]['streamingLocation'])

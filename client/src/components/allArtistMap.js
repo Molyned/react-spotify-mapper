@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Plotly from 'plotly.js-mapbox-dist'
 import createPlotlyComponent from 'react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
-require('dotenv').config() 
+require('dotenv').config({path: __dirname + '/.env'});
 
 const API_KEY = process.env.REACT_APP_MAP_KEY;
 
@@ -13,8 +13,11 @@ export default class AllArtistMap extends Component {
     Plotly.setPlotConfig({
       mapboxAccessToken: API_KEY 
     })
+    console.log(process.env.REACT_APP_MAP_KEY)
+    console.log(require('dotenv').config())
     return (
         <div justify="center"> 
+        
             <Plot
                 data={[
                 {
