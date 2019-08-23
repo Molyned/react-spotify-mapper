@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
 import Plotly from 'plotly.js-mapbox-dist'
-import createPlotlyComponent from 'react-plotly.js/factory';
+import createPlotlyComponent from ' react-plotly.js/factory';
 const Plot = createPlotlyComponent(Plotly);
 require('dotenv').config({path: __dirname + '/.env'});
 
