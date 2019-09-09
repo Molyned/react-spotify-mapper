@@ -6,8 +6,7 @@ import chart_studio.plotly as py
 from plotly.offline import plot
 import plotly.graph_objs as go
 import requests
-from flask import Flask
-from flask import Markup
+from flask import Flask, Markup, render_template
 from flask_cors import CORS, cross_origin
 chart_studio.tools.set_credentials_file(username=config.mapUsername, api_key=config.mapApiToken)
 mapbox_access_token = config.mapAccessToken
@@ -113,12 +112,17 @@ def sendPlotData():
             style='light'
             ),
         )
+        break
     fig = dict(data=traceData, layout=mapLayout)
-    graph = plot(fig, filename="Artist's MongoDB.html", output_type='div') 
-    print(graph)
+    graph = plot(fig,  output_type='div', include_plotlyjs=False) 
     figure = str(fig)
-    return graph
-
+    figure = figure.replace("'", "\"")
+    figure = figure.replace("(", "")
+    figure = figure.replace("Scattermapbox", '"Scattermapbox": ')
+    
+    figure = figure.replace(")", "")
+    # return render_template("Artist's MongoDB.html", div_placeholder=Markup(graph))
+    return figure
 
 if __name__=="__main__":
     app.run(debug=True)
