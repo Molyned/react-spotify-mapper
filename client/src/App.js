@@ -23,8 +23,8 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <AllArtistMap/> */}
-        <div dangerouslySetInnerHTML={{__html: this.state.map}}/>
+        <AllArtistMap/>
+        {/* <div dangerouslySetInnerHTML={{__html: this.state.map}}/> */}
         {/* {this.state.map} */}
       </div>
     );

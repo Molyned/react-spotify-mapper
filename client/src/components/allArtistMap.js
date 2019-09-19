@@ -13,14 +13,14 @@ const API_KEY = 'pk.eyJ1IjoibW9seW5lZCIsImEiOiJjanppcHc0cHkwMTdpM2RtenJncTJ1anFl
 
 
 export default class AllArtistMap extends Component {
-  componentDidMount() {
-    axios.post('http://127.0.0.1:5000/map').then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
+  // componentDidMount() {
+  //   axios.post('http://127.0.0.1:5000/map').then(response => {
+  //     console.log(response.data);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  // }
   
   render() {
     Plotly.setPlotConfig({
@@ -31,13 +31,13 @@ export default class AllArtistMap extends Component {
         <Plot
         data={[{
             type:'scattermapbox',
-            lat:['45.5017'],
-            lon:['-73.5673'],
+            lat:['45.5017', '44.2312'],
+            lon:['-73.5673', '76.4860'],
             mode:'markers',
             marker: {
               size:14
             },
-            text:['Montreal']}]}
+            text:['Montreal', 'Kingston']}]}
         layout={
           {autosize: true,
           hovermode:'closest',
@@ -52,7 +52,6 @@ export default class AllArtistMap extends Component {
           },
         }}
           />
-          Plotly.plot('myDiv', data, layout)
       </div>
     );
   }
